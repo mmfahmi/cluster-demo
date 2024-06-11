@@ -1,0 +1,27 @@
+body{
+    height: 100vh;
+}
+
+#loginButton {
+    padding-left: 10rem;
+    padding-right: 10rem;
+    align-content: center;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: column; /* Arranges items in a column */
+    justify-content: center; /* Centers items vertically */
+    align-items: center;    /* Centers items horizontally */
+    margin-top: 5rem;
+  }
+  
+  #button-container img {
+    margin-bottom: 20px; /* Adds space between the image and the button */
+  }
+
+  .btn-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

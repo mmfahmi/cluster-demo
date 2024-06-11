@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Drive Analyzer</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"   rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='image/icon.png')}}" type="image/x-icon">
+	<script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body class="bg-dark">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid container-fluid-dark bg-dark">
+		  <a class="navbar-brand" href="#">Drive Analyzer</a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div class="navbar-nav">
+			  <a class="nav-link active" aria-current="page" href="#">Home</a>
+			</div>
+		  </div>
+		</div>
+	</nav>
+	<main class="container-fluid text-light ">
+		<h1>Select Your Folder</h1>
+		<button id="listButton" type="button" class="btn btn-primary">List Folders</button>
+		<button class="btn btn-primary d-none btnLoading" type="button" id="loadingButton" disabled>
+			<span class="spinner-border spinner-border-sm " role="status" aria-hidden="true" ></span>
+			Loading...
+		</button>
+		<p class="mt-3">Choose the folder to be analyzed</p>
+		<div class="btn-container">
+			<button type="button" id="selectMultiple" name="selectMultiple" class="btn btn-secondary" onclick="toggleAllCheckboxes()">Select Multiple</button>
+			<button type="button" class="btn btn-info" id="clusterTargets" name="clusterTargets" onclick="listTargets()">Cluster Selected Folders</button>
+			<button class="btn btn-info d-none" type="button" id="clusterButton" disabled>
+				<span class="spinner-grow spinner-grow-sm" aria-hidden="true"></span>
+				<span role="status">Loading...</span>
+			</button>
+		</div>
+		<table class="table table-dark table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>
+						<label for="selectAll" style="visibility: hidden; display: none;">Select All</label>
+						<input type="checkbox" name="folderCheck" id="selectAll" style="visibility: hidden; display: none;" onclick="selectAll()">
+						Name
+					</th>
+                    <th>Size</th>
+                    <th>Last Modified</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+                    <td>
+						<input type="checkbox" name="folderCheck" id="{{ file.id }}" value="{{file.name}}" style="visibility: hidden; display: none;">
+						<button type="button" id="folderButton" class="btn btn-secondary" onclick="folderToCluster('{{file.name}}','{{file.id}}')">{{ file.name }}</button>
+					</td>
+                    <td>{{ file.mimeType }}</td>
+                    <td>{{ file.modifiedTime }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+	</main>
+</body>
+</html>

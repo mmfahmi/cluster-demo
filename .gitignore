@@ -1,0 +1,8 @@
+.venv
+.vscode
+__pycache__
+*.cpython 
+.env
+credentials.json
+token.json
+compose.yaml
